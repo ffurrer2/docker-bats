@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
+set -euo pipefail
+
+readonly BUILD_DATE="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+# shellcheck disable=SC2154
+docker build \
+  --build-arg BUILD_DATE="${BUILD_DATE}" \
+  --pull \
+  --file "${DOCKERFILE_PATH}" \
+  --tag "${IMAGE_NAME}" .
