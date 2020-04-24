@@ -7,7 +7,7 @@
 [![Docker Image Size](https://img.shields.io/docker/image-size/ffurrer/bats/latest)](https://hub.docker.com/r/ffurrer/bats/tags)
 [![Docker Pulls](https://img.shields.io/docker/pulls/ffurrer/bats)](https://hub.docker.com/r/ffurrer/bats)
 
-This repository provides a lightweight alpine-based Docker image for [bats-core](https://github.com/bats-core/bats-core), [bats-support](https://github.com/ztombol/bats-support), [bats-assert](https://github.com/ztombol/bats-assert) and [bats-file](https://github.com/ztombol/bats-file)
+This repository provides a lightweight alpine-based Docker image for [bats-core](https://github.com/bats-core/bats-core), [bats-support](https://github.com/ztombol/bats-support), [bats-assert](https://github.com/ztombol/bats-assert) and [bats-file](https://github.com/ztombol/bats-file).
 
 ## Supported tags and respective Dockerfile links
 
