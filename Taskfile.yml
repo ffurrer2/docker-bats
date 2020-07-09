@@ -5,7 +5,6 @@ vars:
   DOCKER_REPO: ffurrer/bats
   DOCKER_TAG: {sh: 'sed -n "s/^ARG BATS_CORE_VERSION=\([0-9]*\.[0-9]*\.[0-9]*\)/\1/p" Dockerfile'}
   IMAGE_NAME: '{{.DOCKER_REPO}}:{{.DOCKER_TAG}}'
-  DOCKERFILE_PATH: Dockerfile
 
 tasks:
   default:
@@ -16,7 +15,7 @@ tasks:
   docker:build:
     desc: Build Docker image
     cmds:
-    - DOCKERFILE_PATH={{.DOCKERFILE_PATH}} IMAGE_NAME={{.IMAGE_NAME}} ./hooks/build
+    - DOCKERFILE_PATH=Dockerfile IMAGE_NAME={{.IMAGE_NAME}} DOCKER_TAG={{.DOCKER_TAG}} ./hooks/build
     - DOCKER_TAG={{.DOCKER_TAG}} IMAGE_NAME={{.IMAGE_NAME}} DOCKER_REPO={{.DOCKER_REPO}} ./hooks/post_push --dry-run
 
   docker:test:
@@ -24,12 +23,35 @@ tasks:
     cmds:
     - docker-compose --file docker-compose.test.yml run sut
 
+  lint:
+    desc: Run all linters
+    cmds:
+    - task: shellcheck
+    - task: yamllint
+    - task: hadolint
+    - task: markdownlint
+    silent: true
+
   shellcheck:
     desc: Lint shell scripts
     cmds:
-    - shellcheck --check-sourced --color=auto --format=tty --enable=all --shell=bash --severity=style hooks/build hooks/post_push
+    - shellcheck --check-sourced --color=auto --format=tty --enable=all --source-path=./ --shell=bash --severity=style hooks/build hooks/post_push
+    silent: true
 
   yamllint:
     desc: Lint YAML files
     cmds:
-    - yamllint --format auto --strict .
+    - yamllint --config-file build/ci/.yamllint.yml --format auto --strict .
+    silent: true
+
+  hadolint:
+    desc: Lint Dockerfiles
+    cmds:
+    - hadolint --format tty Dockerfile
+    silent: true
+
+  markdownlint:
+    desc: Lint Markdown files
+    cmds:
+    - docker run -it --rm --volume "$(pwd):/work" tmknom/markdownlint:latest --config build/ci/.markdownlint.yml .
+    silent: true

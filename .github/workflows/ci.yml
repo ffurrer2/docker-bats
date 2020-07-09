@@ -5,9 +5,10 @@ on:
   push:
     branches:
     - master
-    - feature/*
+    - feature/**
     paths-ignore:
     - '**.md'
+    - '.gitignore'
 
 env:
   TASK_VERSION: 2.8.0
@@ -27,24 +28,3 @@ jobs:
     - name: Test
       run: |
         task docker:test
-
-  shellcheck:
-    runs-on: ubuntu-18.04
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Shellcheck
-      uses: docker://koalaman/shellcheck:latest
-      with:
-        entrypoint: /bin/shellcheck
-        args: '--check-sourced --color=auto --format=tty --enable=all --shell=bash --severity=style hooks/build hooks/post_push'
-
-  yamllint:
-    runs-on: ubuntu-18.04
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: yamllint
-      uses: docker://ffurrer/yamllint:latest
-      with:
-        args: '--format auto --strict .'
