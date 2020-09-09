@@ -6,9 +6,12 @@ on:
     branches:
     - master
     - feature/**
+    - dependabot/**
     paths:
     - '**.sh'
-    - '**/shellcheck.yml'
+    - 'hooks/build'
+    - 'hooks/post_push'
+    - '.github/workflows/shellcheck.yml'
 
 jobs:
   shellcheck:

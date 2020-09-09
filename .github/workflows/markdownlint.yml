@@ -6,9 +6,11 @@ on:
     branches:
     - master
     - feature/**
+    - dependabot/**
     paths:
     - '**.md'
-    - '**/.?markdownlint.yml'
+    - '.github/linters/.markdown-lint.yml'
+    - '.github/workflows/markdownlint.yml'
 
 jobs:
   markdownlint:
