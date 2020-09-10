@@ -36,6 +36,8 @@ tasks:
     - task: shellcheck
     - task: yamllint
     - task: hadolint
+    - task: trivy
+    - task: dockle
     - task: markdownlint
     silent: true
 
@@ -56,6 +58,16 @@ tasks:
     cmds:
     - hadolint --format tty Dockerfile
     silent: true
+
+  trivy:
+    desc: Run trivy (vulnerability scanner)
+    cmds:
+    - trivy image --format table {{.IMAGE_NAME}}
+
+  dockle:
+    desc: Run Dockle (container image linter)
+    cmds:
+    - dockle {{.IMAGE_NAME}}
 
   markdownlint:
     desc: Lint Markdown files

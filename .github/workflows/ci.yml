@@ -29,3 +29,8 @@ jobs:
     - name: Test
       run: |
         task docker:test
+    - name: Container Scan
+      uses: azure/container-scan@v0
+      with:
+        image-name: ffurrer/bats:latest
+        severity-threshold: UNKNOWN
