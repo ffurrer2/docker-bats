@@ -9,8 +9,7 @@ on:
     - dependabot/**
     paths:
     - '**.sh'
-    - 'hooks/build'
-    - 'hooks/post_push'
+    - 'hooks/*'
     - '.github/workflows/shellcheck.yml'
 
 jobs:
