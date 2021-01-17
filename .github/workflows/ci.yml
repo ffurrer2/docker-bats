@@ -12,7 +12,7 @@ on:
     - '.gitignore'
 
 env:
-  TASK_VERSION: 3.0.0
+  TASK_VERSION: 3.2.2
 
 jobs:
   docker-hub:
