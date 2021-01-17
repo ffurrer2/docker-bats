@@ -48,7 +48,7 @@ ARG BUILD_VERSION
 LABEL org.opencontainers.image.authors="Felix Furrer" \
     org.opencontainers.image.created="${BUILD_DATE}" \
     org.opencontainers.image.description="TAP-compliant testing framework for Bash." \
-    org.opencontainers.image.documentation="https://github.com/ffurrer2/docker-bats/blob/master/README.md" \
+    org.opencontainers.image.documentation="https://github.com/ffurrer2/docker-bats/blob/main/README.md" \
     org.opencontainers.image.licenses="MIT AND CC0-1.0" \
     org.opencontainers.image.source="https://github.com/ffurrer2/docker-bats.git" \
     org.opencontainers.image.title="Bash Automated Testing System" \
