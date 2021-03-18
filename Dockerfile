@@ -3,11 +3,11 @@
 ###############################################################################
 # BUILD STAGE
 ###############################################################################
-# docker.io/library/alpine:3.12.0
-FROM alpine@sha256:185518070891758909c9f839cf4ca393ee977ac378609f700f60a771a2dfe321 AS builder
+# docker.io/library/alpine:3.13.2
+FROM alpine@sha256:a75afd8b57e7f34e4dad8d65e2c7ba2e1975c795ce1ee22fa34f8cf46f96a3be AS builder
 
-ARG CURL_VERSION=7.69.1-r1
-ARG BATS_CORE_VERSION=1.2.1
+ARG CURL_VERSION=7.74.0-r1
+ARG BATS_CORE_VERSION=1.3.0
 ARG BATS_SUPPORT_VERSION=0.3.0
 ARG BATS_ASSERT_VERSION=0.3.0
 ARG BATS_FILE_VERSION=0.2.0
@@ -24,12 +24,12 @@ RUN curl -fsSL https://github.com/bats-core/bats-core/archive/v${BATS_CORE_VERSI
 ###############################################################################
 # FINAL IMAGE
 ###############################################################################
-# docker.io/library/alpine:3.12.0
-FROM alpine@sha256:185518070891758909c9f839cf4ca393ee977ac378609f700f60a771a2dfe321
+# docker.io/library/alpine:3.13.2
+FROM alpine@sha256:a75afd8b57e7f34e4dad8d65e2c7ba2e1975c795ce1ee22fa34f8cf46f96a3be
 
-ARG BASH_VERSION=5.0.17-r0
-ARG PARALLEL_VERSION=20200522-r0
-ARG NCURSES_VERSION=6.2_p20200523-r0
+ARG BASH_VERSION=5.1.0-r0
+ARG PARALLEL_VERSION=20201222-r0
+ARG NCURSES_VERSION=6.2_p20210109-r0
 
 RUN set -eu; \
     apk --no-cache add bash=${BASH_VERSION} parallel=${PARALLEL_VERSION} ncurses=${NCURSES_VERSION}; \

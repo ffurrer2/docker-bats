@@ -11,7 +11,7 @@ This repository provides a lightweight alpine-based Docker image for [bats-core]
 
 ## Supported tags and respective Dockerfile links
 
-- [`1.2.1`, `1.2`, `latest`](https://github.com/ffurrer2/docker-bats/blob/main/Dockerfile)
+- [`1.3.0`, `1.3`, `latest`](https://github.com/ffurrer2/docker-bats/blob/main/Dockerfile)
 
 ## Usage
 
