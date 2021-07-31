@@ -42,7 +42,7 @@ COPY --from=builder /tmp/bats-assert-* /opt/bats-assert
 COPY --from=builder /tmp/bats-file-* /opt/bats-file
 RUN ln -s /opt/bats-core/bin/bats /usr/local/bin/bats
 
-ARG BUILD_DATE
+ARG BUILD_DATE="1970-01-01T00:00:00Z"
 ARG BUILD_VERSION
 
 LABEL org.opencontainers.image.authors="Felix Furrer" \

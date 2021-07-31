@@ -2,12 +2,8 @@
 # SPDX-License-Identifier: MIT
 set -euo pipefail
 
-BUILD_DATE="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-readonly BUILD_DATE
-
 # shellcheck disable=SC2154
 docker build \
-  --build-arg BUILD_DATE="${BUILD_DATE}" \
   --build-arg BUILD_VERSION="${DOCKER_TAG}" \
   --pull \
   --file "${DOCKERFILE_PATH}" \
