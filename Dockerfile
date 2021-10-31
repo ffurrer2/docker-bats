@@ -3,10 +3,10 @@
 ###############################################################################
 # BUILD STAGE
 ###############################################################################
-# docker.io/library/alpine:3.14.0
-FROM alpine@sha256:adab3844f497ab9171f070d4cae4114b5aec565ac772e2f2579405b78be67c96 AS builder
+# docker.io/library/alpine:3.14.2
+FROM alpine@sha256:e1c082e3d3c45cccac829840a25941e679c25d438cc8412c2fa221cf1a824e6a AS builder
 
-ARG CURL_VERSION=7.78.0-r0
+ARG CURL_VERSION=7.79.1-r0
 ARG BATS_CORE_VERSION=1.3.0
 ARG BATS_SUPPORT_VERSION=0.3.0
 ARG BATS_ASSERT_VERSION=0.3.0
@@ -24,8 +24,8 @@ RUN curl -fsSL https://github.com/bats-core/bats-core/archive/v${BATS_CORE_VERSI
 ###############################################################################
 # FINAL IMAGE
 ###############################################################################
-# docker.io/library/alpine:3.14.0
-FROM alpine@sha256:adab3844f497ab9171f070d4cae4114b5aec565ac772e2f2579405b78be67c96
+# docker.io/library/alpine:3.14.2
+FROM alpine@sha256:e1c082e3d3c45cccac829840a25941e679c25d438cc8412c2fa221cf1a824e6a
 
 ARG BASH_VERSION=5.1.4-r0
 ARG PARALLEL_VERSION=20210522-r0
