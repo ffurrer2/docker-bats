@@ -80,3 +80,9 @@ tasks:
     cmds:
     - yamllint --config-file .github/linters/.yaml-lint.yml --format auto --strict .
     silent: true
+
+  docker:scan:
+    desc: Run Snyk tests
+    cmds:
+    - docker scan {{.IMAGE_NAME}}
+    silent: true
