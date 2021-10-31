@@ -8,7 +8,7 @@ on:
     - feature/**
     - dependabot/**
     paths:
-    - '**/Dockerfile*'
+    - '**/Dockerfile'
     - '.github/workflows/hadolint.yml'
 
 jobs:

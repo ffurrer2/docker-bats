@@ -1,0 +1,7 @@
+.github/
+tasks/
+test/
+.gitignore
+LICENSE
+README.md
+Taskfile.yml

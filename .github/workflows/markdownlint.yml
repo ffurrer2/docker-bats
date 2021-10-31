@@ -21,5 +21,5 @@ jobs:
     - name: markdownlint
       uses: nosborn/github-action-markdown-cli@v3.0.1
       with:
-        files: .
         config_file: .github/linters/.markdown-lint.yml
+        files: .

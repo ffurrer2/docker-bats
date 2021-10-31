@@ -1,17 +1,11 @@
 <!-- SPDX-License-Identifier: MIT -->
 # Bats Docker image
 
-[![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/ffurrer/bats)](https://hub.docker.com/r/ffurrer/bats/builds)
-[![Docker Cloud Automated Build](https://img.shields.io/docker/cloud/automated/ffurrer/bats)](https://hub.docker.com/r/ffurrer/bats/builds)
-[![Docker Image Version](https://img.shields.io/docker/v/ffurrer/bats?sort=semver)](https://hub.docker.com/r/ffurrer/bats/tags)
-[![Docker Image Size](https://img.shields.io/docker/image-size/ffurrer/bats/latest)](https://hub.docker.com/r/ffurrer/bats/tags)
-[![Docker Pulls](https://img.shields.io/docker/pulls/ffurrer/bats)](https://hub.docker.com/r/ffurrer/bats)
-
 This repository provides a lightweight alpine-based Docker image for [bats-core](https://github.com/bats-core/bats-core), [bats-support](https://github.com/ztombol/bats-support), [bats-assert](https://github.com/ztombol/bats-assert) and [bats-file](https://github.com/ztombol/bats-file).
 
 ## Supported tags and respective Dockerfile links
 
-- [`1.4.0`, `1.4`, `latest`](https://github.com/ffurrer2/docker-bats/blob/main/Dockerfile)
+- [`1.5.0`, `1.5`, `1`, `latest`](https://github.com/ffurrer2/docker-bats/blob/main/Dockerfile)
 
 ## Usage
 
@@ -20,7 +14,7 @@ This repository provides a lightweight alpine-based Docker image for [bats-core]
 To run all Bats tests in the current directory, run the following command:
 
 ```bash
-docker run -it --rm -v "$(pwd):/workdir" ffurrer/bats:latest .
+docker run -it --rm -v "$(pwd):/workdir" ghcr.io/ffurrer2/bats:latest .
 ```
 
 ### GitHub Actions
@@ -34,7 +28,7 @@ bats:
   - name: Checkout
     uses: actions/checkout@v2
   - name: bats
-    uses: docker://ffurrer/bats:latest
+    uses: docker://ghcr.io/ffurrer2/bats:latest
     with:
       args: '.'
 ```
@@ -44,25 +38,25 @@ bats:
 ### Run Bats tests of a single test file
 
 ```bash
-docker run -it --rm -v "$(pwd):/workdir" ffurrer/bats my-test.bats
+docker run -it --rm -v "$(pwd):/workdir" ghcr.io/ffurrer2/bats my-test.bats
 ```
 
 ### Use `bats` options
 
 ```bash
-docker run -it --rm -v "$(pwd):/workdir" ffurrer/bats --recursive --tap .
+docker run -it --rm -v "$(pwd):/workdir" ghcr.io/ffurrer2/bats --recursive --tap .
 ```
 
 ### Show help message
 
 ```bash
-docker run -it --rm ffurrer/bats
+docker run -it --rm ghcr.io/ffurrer2/bats
 ```
 
 ### Show version
 
 ```bash
-docker run -it --rm ffurrer/bats --version
+docker run -it --rm ghcr.io/ffurrer2/bats --version
 ```
 
 ## License

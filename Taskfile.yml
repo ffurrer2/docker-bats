@@ -2,10 +2,20 @@
 # https://taskfile.dev
 version: '3'
 
+includes:
+  docker: ./tasks/DockerTasks.yml
+  dockle: ./tasks/DockleTasks.yml
+  git: ./tasks/GitTasks.yml
+  hadolint: ./tasks/HadolintTasks.yml
+  markdownlint: ./tasks/MarkdownlintTasks.yml
+  trivy: ./tasks/TrivyTasks.yml
+  yamllint: ./tasks/YamllintTasks.yml
+
 vars:
-  DOCKER_REPO: ffurrer/bats
+  DOCKER_REGISTRY: ghcr.io
+  DOCKER_REPOSITORY: ffurrer2/bats
   DOCKER_TAG: { sh: 'sed -n "s/^ARG BATS_CORE_VERSION=\([0-9]*\.[0-9]*\.[0-9]*\)/\1/p" Dockerfile' }
-  IMAGE_NAME: '{{.DOCKER_REPO}}:{{.DOCKER_TAG}}'
+  IMAGE_NAME: '{{.DOCKER_REGISTRY}}/{{.DOCKER_REPOSITORY}}:{{.DOCKER_TAG}}'
 
 tasks:
   default:
@@ -13,76 +23,12 @@ tasks:
     - task --list
     silent: true
 
-  docker:build:
-    desc: Build Docker image
-    cmds:
-    - DOCKER_TAG={{.DOCKER_TAG}} IMAGE_NAME={{.IMAGE_NAME}} DOCKERFILE_PATH=Dockerfile ./hooks/build
-    - DOCKER_TAG={{.DOCKER_TAG}} IMAGE_NAME={{.IMAGE_NAME}} DOCKER_REPO={{.DOCKER_REPO}} ./hooks/post_push --dry-run
-
-  docker:test:
-    desc: Test Docker image
-    cmds:
-    - docker-compose --file docker-compose.test.yml run sut
-
-  git:tag:
-    desc: Create release tag
-    preconditions:
-    - sh: '{{if empty .DOCKER_TAG}}false{{end}}'
-      msg: 'Variable "DOCKER_TAG" is required (e.g. task git:tag DOCKER_TAG=0.0.0)'
-    cmds:
-    - git tag --annotate --message='release v{{.DOCKER_TAG}}' --sign {{.DOCKER_TAG}}
-    - git --no-pager tag -n
-    silent: true
-
   lint:
     desc: Run all linters
     cmds:
-    - task: dockle
-    - task: hadolint
-    - task: markdownlint
-    - task: shellcheck
-    - task: trivy
-    - task: yamllint
-    silent: true
-
-  dockle:
-    desc: Run Dockle (container image linter)
-    cmds:
-    - dockle {{.IMAGE_NAME}}
-    silent: true
-
-  hadolint:
-    desc: Lint Dockerfiles
-    cmds:
-    - hadolint --format tty Dockerfile
-    silent: true
-
-  markdownlint:
-    desc: Lint Markdown files
-    cmds:
-    - docker run -it --rm --volume "$(pwd):/work" tmknom/markdownlint:latest --config .github/linters/.markdown-lint.yml .
-    silent: true
-
-  shellcheck:
-    desc: Lint shell scripts
-    cmds:
-    - shellcheck --check-sourced --color=auto --format=tty --enable=all --source-path=./ --shell=bash --severity=style hooks/build hooks/post_push
-    silent: true
-
-  trivy:
-    desc: Run trivy (vulnerability scanner)
-    cmds:
-    - trivy image --format table {{.IMAGE_NAME}}
-    silent: true
-
-  yamllint:
-    desc: Lint YAML files
-    cmds:
-    - yamllint --config-file .github/linters/.yaml-lint.yml --format auto --strict .
-    silent: true
-
-  docker:scan:
-    desc: Run Snyk tests
-    cmds:
-    - docker scan {{.IMAGE_NAME}}
+    - task: dockle:lint
+    - task: hadolint:lint
+    - task: markdownlint:lint
+    - task: trivy:image
+    - task: yamllint:lint
     silent: true

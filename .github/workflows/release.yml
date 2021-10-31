@@ -1,0 +1,71 @@
+# SPDX-License-Identifier: MIT
+name: Release
+
+on:
+  push:
+    branches:
+    - main
+    - feature/**
+    - dependabot/**
+    tags:
+    - '*.*.*'
+    paths-ignore:
+    - '**.md'
+    - '.gitignore'
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  release:
+    name: Create release
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set environment variables
+      run: |
+        set -euo pipefail
+        IMAGE_BASE_NAME="$(sed -n "s/^FROM \(.*\)/\1/p" Dockerfile | tail -n 1)"
+        echo "IMAGE_BASE_NAME=${IMAGE_BASE_NAME}" >>"${GITHUB_ENV}"
+        echo "IMAGE_BASE_DIGEST=$(docker pull ${IMAGE_BASE_NAME} | sed -n "s/^Digest: \(.*\)$/\1/p")" >>"${GITHUB_ENV}"
+        cat "${GITHUB_ENV}"
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to GitHub Container registry
+      uses: docker/login-action@v1
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Docker metadata
+      id: metadata
+      uses: docker/metadata-action@v3
+      with:
+        images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/bats
+        labels: |
+          org.opencontainers.image.authors=Felix Furrer
+          org.opencontainers.image.created=1970-01-01T00:00:00Z
+          org.opencontainers.image.description=TAP-compliant testing framework for Bash.
+          org.opencontainers.image.documentation=https://github.com/${{ github.repository }}/blob/main/README.md
+          org.opencontainers.image.licenses=MIT AND CC0-1.0
+          org.opencontainers.image.title=bats
+          org.opencontainers.image.vendor=Felix Furrer
+          org.opencontainers.image.base.name=${{ env.IMAGE_BASE_NAME }}
+          org.opencontainers.image.base.digest=${{ env.IMAGE_BASE_DIGEST }}
+        tags: |
+          type=ref,event=branch
+          type=semver,pattern={{version}}
+          type=semver,pattern={{major}}.{{minor}}
+          type=semver,pattern={{major}}
+
+    - name: Build Docker image
+      uses: docker/build-push-action@v2
+      with:
+        push: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+        tags: ${{ steps.metadata.outputs.tags }}
+        labels: ${{ steps.metadata.outputs.labels }}

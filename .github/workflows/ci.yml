@@ -12,10 +12,12 @@ on:
     - '.gitignore'
 
 env:
-  TASK_VERSION: 3.2.2
+  TASK_VERSION: 3.9.2
+  REGISTRY: ghcr.io
+  REPOSITORY: ffurrer2/bats
 
 jobs:
-  docker-hub:
+  build:
     runs-on: ubuntu-20.04
     steps:
     - name: Set up task
@@ -32,5 +34,5 @@ jobs:
     - name: Container Scan
       uses: azure/container-scan@v0
       with:
-        image-name: ffurrer/bats:latest
+        image-name: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:latest
         severity-threshold: UNKNOWN

@@ -1,0 +1,45 @@
+# SPDX-License-Identifier: MIT
+# https://taskfile.dev
+version: '3'
+
+tasks:
+  build:
+    desc: Build Docker image
+    vars:
+      IMAGE_BASE_NAME: { sh: 'sed -n "s/^FROM \(.*\)/\1/p" Dockerfile | tail -n 1' }
+      IMAGE_BASE_DIGEST: { sh: 'docker pull {{.IMAGE_BASE_NAME}} | sed -n "s/^Digest: \(.*\)$/\1/p"' }
+      VCS_REF: { sh: git rev-parse HEAD }
+    env:
+      DOCKER_CONTENT_TRUST: 1
+    cmds:
+    - |
+      docker buildx build \
+          --label org.opencontainers.image.authors='Felix Furrer' \
+          --label org.opencontainers.image.created=1970-01-01T00:00:00Z \
+          --label org.opencontainers.image.description='TAP-compliant testing framework for Bash.' \
+          --label org.opencontainers.image.documentation=https://github.com/ffurrer2/docker-bats/blob/main/README.md \
+          --label org.opencontainers.image.licenses='MIT AND CC0-1.0' \
+          --label org.opencontainers.image.revision={{.VCS_REF}} \
+          --label org.opencontainers.image.source=https://github.com/ffurrer2/docker-yamllint \
+          --label org.opencontainers.image.title=yamllint \
+          --label org.opencontainers.image.url=https://github.com/ffurrer2/docker-yamllint \
+          --label org.opencontainers.image.vendor='Felix Furrer' \
+          --label org.opencontainers.image.version={{.DOCKER_TAG}} \
+          --label org.opencontainers.image.base.name={{.IMAGE_BASE_NAME}} \
+          --label org.opencontainers.image.base.digest={{.IMAGE_BASE_DIGEST}} \
+          --progress plain \
+          --tag {{.IMAGE_NAME}} \
+          .
+    - docker tag {{.IMAGE_NAME}} {{.DOCKER_REGISTRY}}/{{.DOCKER_REPOSITORY}}:latest
+    silent: true
+
+  test:
+    desc: Test Docker image
+    cmds:
+    - docker-compose --file test/docker-compose.test.yml run sut
+
+  scan:
+    desc: Run Snyk tests
+    cmds:
+    - docker scan {{.IMAGE_NAME}}
+    silent: true
