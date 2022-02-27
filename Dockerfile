@@ -33,7 +33,7 @@ RUN curl -fsSL https://github.com/bats-core/bats-core/archive/v${BATS_CORE_VERSI
 ###############################################################################
 FROM docker.io/library/alpine:3.15.0
 
-ARG BASH_VERSION=5.1.8-r0
+ARG BASH_VERSION=5.1.16-r0
 ARG PARALLEL_VERSION=20211122-r0
 ARG NCURSES_VERSION=6.3_p20211120-r0
 
