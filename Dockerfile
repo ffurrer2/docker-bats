@@ -7,7 +7,7 @@ FROM docker.io/library/alpine:3.15.4 AS builder
 
 ARG CURL_VERSION=7.80.0-r1
 # https://github.com/bats-core/bats-core/releases/latest
-ARG BATS_CORE_VERSION=1.6.1
+ARG BATS_CORE_VERSION=1.7.0
 # https://github.com/ztombol/bats-support/releases/latest
 ARG BATS_SUPPORT_VERSION=0.3.0
 # https://github.com/ztombol/bats-assert/releases/latest
@@ -22,9 +22,7 @@ SHELL ["/bin/ash", "-euxo", "pipefail", "-c"]
 RUN curl -fsSL https://github.com/bats-core/bats-core/archive/v${BATS_CORE_VERSION}.tar.gz | tar xzv; \
     curl -fsSL https://github.com/ztombol/bats-support/archive/v${BATS_SUPPORT_VERSION}.tar.gz | tar xzv; \
     curl -fsSL https://github.com/ztombol/bats-assert/archive/v${BATS_ASSERT_VERSION}.tar.gz | tar xzv; \
-    curl -fsSL https://github.com/ztombol/bats-file/archive/v${BATS_FILE_VERSION}.tar.gz | tar xzv; \
-    # TODO: workaround for error: buildx failed with: error: failed to solve: failed to compute cache key: "/tmp/bats-core-1.5.0/test/fixtures/parallel/helper.bash": not found
-    rm /tmp/bats-core-*/test/fixtures/parallel/suite/helper.bash
+    curl -fsSL https://github.com/ztombol/bats-file/archive/v${BATS_FILE_VERSION}.tar.gz | tar xzv
 
 ###############################################################################
 # FINAL IMAGE
