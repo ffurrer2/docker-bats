@@ -12,7 +12,7 @@ on:
     - '.gitignore'
 
 env:
-  TASK_VERSION: 3.9.2
+  TASK_VERSION: 3.12.1
   REGISTRY: ghcr.io
   REPOSITORY: ffurrer2/bats
 
