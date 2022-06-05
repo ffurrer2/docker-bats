@@ -3,9 +3,9 @@
 ###############################################################################
 # BUILD STAGE
 ###############################################################################
-FROM docker.io/library/alpine:3.15.4 AS builder
+FROM docker.io/library/alpine:3.16.0 AS builder
 
-ARG CURL_VERSION=7.80.0-r1
+ARG CURL_VERSION=7.83.1-r1
 # https://github.com/bats-core/bats-core/releases/latest
 ARG BATS_CORE_VERSION=1.7.0
 # https://github.com/ztombol/bats-support/releases/latest
@@ -27,13 +27,13 @@ RUN curl -fsSL https://github.com/bats-core/bats-core/archive/v${BATS_CORE_VERSI
 ###############################################################################
 # FINAL IMAGE
 ###############################################################################
-FROM docker.io/library/alpine:3.15.4
+FROM docker.io/library/alpine:3.16.0
 
-ARG BASH_VERSION=5.1.16-r0
-ARG PARALLEL_VERSION=20211122-r0
-ARG NCURSES_VERSION=6.3_p20211120-r0
+ARG BASH_VERSION=5.1.16-r2
+ARG PARALLEL_VERSION=20220422-r0
+ARG NCURSES_VERSION=6.3_p20220521-r0
 
-RUN set -eu; \
+RUN set -eux; \
     apk --no-cache add bash=${BASH_VERSION} parallel=${PARALLEL_VERSION} ncurses=${NCURSES_VERSION}; \
     mkdir -p ~/.parallel; \
     touch ~/.parallel/will-cite
