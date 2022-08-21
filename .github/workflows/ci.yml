@@ -12,13 +12,13 @@ on:
     - '.gitignore'
 
 env:
-  TASK_VERSION: 3.12.1
+  TASK_VERSION: 3.14.1
   REGISTRY: ghcr.io
   REPOSITORY: ffurrer2/bats
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - name: Set up task
       run: |
