@@ -37,9 +37,3 @@ tasks:
     desc: Test Docker image
     cmds:
     - docker-compose --file test/docker-compose.test.yml run sut
-
-  scan:
-    desc: Run Snyk tests
-    cmds:
-    - docker scan {{.IMAGE_NAME}}
-    silent: true

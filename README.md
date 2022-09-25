@@ -65,7 +65,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 View license information for [bats-core](https://github.com/bats-core/bats-core/blob/master/LICENSE.md), [bats-support](https://github.com/ztombol/bats-support/blob/master/LICENSE), [bats-assert](https://github.com/ztombol/bats-assert/blob/master/LICENSE) and [bats-file](https://github.com/ztombol/bats-file/blob/master/LICENSE).
 
-As with all Docker images, these likely also contain other software which may be under other licenses (such as Bash, etc from the base distribution, along with any direct or indirect dependencies of the primary software being contained).
+As with all Docker images, these likely also contain other software which may be under other licenses (such as Bash, etc. from the base distribution, along with any direct or indirect dependencies of the primary software being contained).
 
 Some additional license information which was able to be auto-detected might be found in the [repo-info repository's alpine/ directory](https://github.com/docker-library/repo-info/tree/master/repos/alpine).
 
