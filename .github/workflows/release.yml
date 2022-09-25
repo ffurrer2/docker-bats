@@ -32,7 +32,7 @@ jobs:
         echo "IMAGE_BASE_DIGEST=$(docker pull ${IMAGE_BASE_NAME} | sed -n "s/^Digest: \(.*\)$/\1/p")" >>"${GITHUB_ENV}"
         cat "${GITHUB_ENV}"
 
-    - name: Set up Docker Buildx
+    - name: Setup Docker Buildx
       uses: docker/setup-buildx-action@v2
 
     - name: Login to GitHub Container registry

@@ -12,7 +12,7 @@ on:
     - '.gitignore'
 
 env:
-  TASK_VERSION: 3.14.1
+  TASK_VERSION: 3.x
   REGISTRY: ghcr.io
   REPOSITORY: ffurrer2/bats
 
@@ -20,9 +20,11 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-    - name: Set up task
-      run: |
-        sudo bash -c 'curl -fsSL https://taskfile.dev/install.sh | bash -s -- -b /usr/local/bin v${{ env.TASK_VERSION }}'
+    - name: Setup Task
+      uses: arduino/setup-task@v1
+      with:
+        version: ${{ env.TASK_VERSION }}
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Checkout
       uses: actions/checkout@v3
     - name: Build
