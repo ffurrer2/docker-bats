@@ -47,6 +47,12 @@ jobs:
       uses: docker/metadata-action@v4
       with:
         images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/bats
+        tags: |
+          type=ref,event=branch
+          type=raw,priority=600,value=latest,enable={{is_default_branch}}
+          type=semver,pattern={{major}},priority=500
+          type=semver,pattern={{major}}.{{minor}},priority=400
+          type=semver,pattern={{version}},priority=300
         labels: |
           org.opencontainers.image.authors=Felix Furrer
           org.opencontainers.image.created=1970-01-01T00:00:00Z
@@ -57,11 +63,6 @@ jobs:
           org.opencontainers.image.vendor=Felix Furrer
           org.opencontainers.image.base.name=${{ env.IMAGE_BASE_NAME }}
           org.opencontainers.image.base.digest=${{ env.IMAGE_BASE_DIGEST }}
-        tags: |
-          type=ref,event=branch
-          type=semver,pattern={{version}}
-          type=semver,pattern={{major}}.{{minor}}
-          type=semver,pattern={{major}}
 
     - name: Build Docker image
       uses: docker/build-push-action@v3
