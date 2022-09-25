@@ -44,7 +44,12 @@ COPY --from=builder /tmp/bats-assert-* /opt/bats-assert
 COPY --from=builder /tmp/bats-file-* /opt/bats-file
 RUN ln -s /opt/bats-core/bin/bats /usr/local/bin/bats
 
-WORKDIR /workdir
+RUN set -ex; \
+    addgroup -g 65532 nonroot; \
+    adduser -h /home/nonroot -g nonroot -s /sbin/nologin -G nonroot -D -u 65532 nonroot
+
+USER nonroot
+WORKDIR /work
 
 ENTRYPOINT ["/usr/local/bin/bats"]
 CMD ["--help"]
