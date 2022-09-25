@@ -20,9 +20,9 @@ tasks:
           --label org.opencontainers.image.documentation=https://github.com/ffurrer2/docker-bats/blob/main/README.md \
           --label org.opencontainers.image.licenses='MIT AND CC0-1.0' \
           --label org.opencontainers.image.revision={{.VCS_REF}} \
-          --label org.opencontainers.image.source=https://github.com/ffurrer2/docker-yamllint \
-          --label org.opencontainers.image.title=yamllint \
-          --label org.opencontainers.image.url=https://github.com/ffurrer2/docker-yamllint \
+          --label org.opencontainers.image.source=https://github.com/ffurrer2/docker-bats-test \
+          --label org.opencontainers.image.title=bats \
+          --label org.opencontainers.image.url=https://github.com/ffurrer2/docker-bats-test \
           --label org.opencontainers.image.vendor='Felix Furrer' \
           --label org.opencontainers.image.version={{.DOCKER_TAG}} \
           --label org.opencontainers.image.base.name={{.IMAGE_BASE_NAME}} \
