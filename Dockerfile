@@ -5,9 +5,9 @@
 ###############################################################################
 FROM docker.io/library/alpine:3.16.2 AS builder
 
-ARG CURL_VERSION=7.83.1-r2
+ARG CURL_VERSION=7.83.1-r3
 # https://github.com/bats-core/bats-core/releases/latest
-ARG BATS_CORE_VERSION=1.7.0
+ARG BATS_CORE_VERSION=1.8.0
 # https://github.com/ztombol/bats-support/releases/latest
 ARG BATS_SUPPORT_VERSION=0.3.0
 # https://github.com/ztombol/bats-assert/releases/latest
