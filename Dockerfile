@@ -3,7 +3,7 @@
 ###############################################################################
 # BUILD STAGE
 ###############################################################################
-FROM docker.io/library/alpine:3.16.2 AS builder
+FROM docker.io/library/alpine:3.16.3 AS builder
 
 ARG CURL_VERSION=7.83.1-r3
 # https://github.com/bats-core/bats-core/releases/latest
@@ -27,7 +27,7 @@ RUN curl -fsSL https://github.com/bats-core/bats-core/archive/v${BATS_CORE_VERSI
 ###############################################################################
 # FINAL IMAGE
 ###############################################################################
-FROM docker.io/library/alpine:3.16.2
+FROM docker.io/library/alpine:3.16.3
 
 ARG BASH_VERSION=5.1.16-r2
 ARG PARALLEL_VERSION=20220422-r0
