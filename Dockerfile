@@ -3,11 +3,11 @@
 ###############################################################################
 # BUILD STAGE
 ###############################################################################
-FROM docker.io/library/alpine:3.16.2 AS builder
+FROM docker.io/library/alpine:3.17.1 AS builder
 
-ARG CURL_VERSION=7.83.1-r3
+ARG CURL_VERSION=7.87.0-r1
 # https://github.com/bats-core/bats-core/releases/latest
-ARG BATS_CORE_VERSION=1.8.0
+ARG BATS_CORE_VERSION=1.8.1
 # https://github.com/ztombol/bats-support/releases/latest
 ARG BATS_SUPPORT_VERSION=0.3.0
 # https://github.com/ztombol/bats-assert/releases/latest
@@ -27,11 +27,11 @@ RUN curl -fsSL https://github.com/bats-core/bats-core/archive/v${BATS_CORE_VERSI
 ###############################################################################
 # FINAL IMAGE
 ###############################################################################
-FROM docker.io/library/alpine:3.16.2
+FROM docker.io/library/alpine:3.17.1
 
-ARG BASH_VERSION=5.1.16-r2
-ARG PARALLEL_VERSION=20220422-r0
-ARG NCURSES_VERSION=6.3_p20220521-r0
+ARG BASH_VERSION=5.2.15-r0
+ARG PARALLEL_VERSION=20221022-r0
+ARG NCURSES_VERSION=6.3_p20221119-r0
 
 RUN set -eux; \
     apk --no-cache add bash=${BASH_VERSION} parallel=${PARALLEL_VERSION} ncurses=${NCURSES_VERSION}; \
