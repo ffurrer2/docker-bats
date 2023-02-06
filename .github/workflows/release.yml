@@ -65,7 +65,7 @@ jobs:
           org.opencontainers.image.base.digest=${{ env.IMAGE_BASE_DIGEST }}
 
     - name: Build Docker image
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v4
       with:
         push: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
         tags: ${{ steps.metadata.outputs.tags }}
